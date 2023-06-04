@@ -1,0 +1,7 @@
+1am charge to 80% at full power (32a)
+6am charge to 50% full power
+
+
+
+if car is home && .2 kw available && plugged in
+charge to 80% at +1amp
