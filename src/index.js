@@ -29,7 +29,9 @@ server.listen(port,function(error) {
 });
 // run an http get request to the url every 15 mins
 setInterval(() => {
-    axios.get(LOCATIONURL)
+    time = Date.now;
+    if (time.getHours() < 20 && time.getHours() > 6) {
+        axios.get(LOCATIONURL)
     .then(response => {
         location = response.data.saved_location
         if(location == "Home") {
@@ -38,6 +40,8 @@ setInterval(() => {
         }
         
     })
+    }
+    
            
 }, 300000);
 
@@ -53,7 +57,8 @@ function StopCharging() {
     axios.get(STOPCHARGINGURL)
 }
 // adjusts car charging rate based on power
-function AdjustPower(currentlyCharging) {
+function AdjustPower() {
+    console.log("adjusting power")
     if(pv - load > 0) {
         if(!isCharging) {
             
@@ -82,6 +87,8 @@ function GetPower() {
         })
     if(Math.abs(pv - load) > 0.2) {
         AdjustPower()
+    } else {
+        console.log("power too low")
     }
 }
 // if the car is home get state is called which will tell the rest of the code whether it can charge or not
